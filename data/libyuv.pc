@@ -1,0 +1,9 @@
+prefix=/app
+exec_prefix=${prefix}
+libdir=%{exec_prefix}/lib
+includedir=%{prefix}/include
+
+Name: libyuv
+Description: YUV conversion and scaling functionality library
+Version: 0
+Libs: -lyuv

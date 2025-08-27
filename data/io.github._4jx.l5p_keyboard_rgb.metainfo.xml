@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github._4jx.l5p_keyboard_rgb</id>
+  
+  <name>Legion RGB Control</name>
+  <url type="help">https://github.com/4JX/L5P-Keyboard-RGB?tab=readme-ov-file#usage</url>
+  <summary>Control Lenovo Legion Keyboard RGB.</summary>
+  
+  <metadata_license>CC-BY-SA-4.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  
+  <description>
+    <p>
+      Cross platform software to control the RGB/lighting of the 4 zone keyboard included in the 2020, 2021, 2022, 2023 and 2024 lineup of the Lenovo Legion laptops. Works on Windows and Linux.
+    </p>
+    <p>
+      NOTE: In order for this flatpak to work, you must install a udev rule to allow this app to control the keyboard LEDs. Please see the linked documentation.
+    </p>
+  </description>
+  
+  <launchable type="desktop-id">io.github._4jx.l5p_keyboard_rgb.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://github.com/4JX/L5P-Keyboard-RGB/raw/main/Preview.png</image>
+      <caption>Main Window</caption>
+    </screenshot>
+  </screenshots>
+    <releases>
+      <release version="v0.20.8" date="2026-03-13">
+        <description/>
+      </release>
+      <release version="v0.20.7" date="2025-07-21">
+        <description/>
+      </release>
+    </releases>
+</component>

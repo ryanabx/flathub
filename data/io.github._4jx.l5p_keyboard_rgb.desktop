@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+
+Name=Legion RGB Control
+Comment=Control Lenovo Legion Keyboard RGB.
+Categories=Utility;
+
+Icon=io.github._4jx.l5p_keyboard_rgb
+Exec=legion-kb-rgb-wrapper.sh
+Terminal=false
+StartupWMClass=legion-kb-rgb

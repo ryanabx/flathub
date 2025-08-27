@@ -1,0 +1,109 @@
+{
+    "$schema": "https://raw.githubusercontent.com/flatpak/flatpak-builder/refs/heads/main/data/flatpak-manifest.schema.json",
+    "id": "io.github._4jx.l5p_keyboard_rgb",
+    "branch": "24.08",
+    "runtime": "org.freedesktop.Platform",
+    "sdk": "org.freedesktop.Sdk",
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Extension.rust-stable",
+        "org.freedesktop.Sdk.Extension.llvm18"
+    ],
+    "runtime-version": "24.08",
+    "finish-args": [
+        "--device=all",
+        "--filesystem=home",
+        "--socket=x11",
+        "--share=ipc"
+    ],
+    "build-options": {
+        "append-path": "/usr/lib/sdk/rust-stable/bin",
+        "prepend-path": "/usr/lib/sdk/llvm18/bin",
+        "prepend-ld-library-path": "/usr/lib/sdk/llvm18/lib",
+        "build-args": [
+            "--share=network"
+        ]
+    },
+    "command": "/app/bin/legion-kb-rgb-wrapper.sh",
+    "modules": [
+        "shared-modules/libappindicator/libappindicator-gtk3-12.10.json",
+        "shared-modules/libayatana-appindicator/libayatana-appindicator-gtk3.json",
+        {
+            "name": "libusb",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/libusb/libusb/releases/download/v1.0.29/libusb-1.0.29.tar.bz2",
+                    "sha256": "5977fc950f8d1395ccea9bd48c06b3f808fd3c2c961b44b0c2e6e29fc3a70a85"
+                }
+            ]
+        },
+        {
+            "name": "libyuv",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "git",
+                    "commit": "30809ff64a9ca5e45f86439c0d474c2d3eef3d05",
+                    "url": "https://chromium.googlesource.com/libyuv/libyuv.git"
+                },
+                {
+                    "type": "file",
+                    "path": "./data/libyuv.pc",
+                    "dest": "./",
+                    "dest-filename": "libyuv.pc"
+                }
+            ],
+            "build-commands": [
+                "install -Dm0644 ./libyuv.pc /app/lib/pkgconfig/libyuv.pc"
+            ]
+        },
+        {
+            "name": "l5p_keyboard_rgb",
+            "buildsystem": "simple",
+            "sources": [
+                {
+                    "type": "git",
+                    "dest": ".",
+                    "url": "https://github.com/4JX/L5P-Keyboard-RGB.git",
+                    "tag": "v0.20.8"
+                }
+            ],
+            "build-commands": [
+                "cargo build --release --features=scrap-pkg-config",
+                "install -Dm0755 ./target/release/legion-kb-rgb /app/bin/legion-kb-rgb",
+                "install -Dm0644 ./app/res/trayIcon.svg /app/share/icons/hicolor/scalable/apps/io.github._4jx.l5p_keyboard_rgb.svg"
+            ]
+        },
+        {
+            "name": "l5p_keyboard_rgb_data",
+            "buildsystem": "simple",
+            "sources": [
+                {
+                    "type": "script",
+                    "commands": [
+                        "/app/bin/legion-kb-rgb --gui"
+                    ],
+                    "dest": ".",
+                    "dest-filename": "legion-kb-rgb-wrapper.sh"
+                },
+                {
+                    "type": "file",
+                    "path": "./data/io.github._4jx.l5p_keyboard_rgb.desktop",
+                    "dest": ".",
+                    "dest-filename": "io.github._4jx.l5p_keyboard_rgb.desktop"
+                },
+                {
+                    "type": "file",
+                    "path": "./data/io.github._4jx.l5p_keyboard_rgb.metainfo.xml",
+                    "dest": ".",
+                    "dest-filename": "io.github._4jx.l5p_keyboard_rgb.metainfo.xml"
+                }
+            ],
+            "build-commands": [
+                "install -Dm0755 ./legion-kb-rgb-wrapper.sh /app/bin/legion-kb-rgb-wrapper.sh",
+                "install -Dm0644 ./io.github._4jx.l5p_keyboard_rgb.desktop /app/share/applications/io.github._4jx.l5p_keyboard_rgb.desktop",
+                "install -Dm0644 ./io.github._4jx.l5p_keyboard_rgb.metainfo.xml /app/share/metainfo/io.github._4jx.l5p_keyboard_rgb.metainfo.xml"
+            ]
+        }
+    ]
+}
